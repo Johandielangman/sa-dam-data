@@ -27,7 +27,6 @@ provider:
     Env: ${opt:stage}
     Project: ${env:PROJECT_NAME}
     Resource_Type: lambda_function
-    Client_Name: ${env:CLIENT_NAME}
   iam:
     role:
       statements:
