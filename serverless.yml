@@ -1,0 +1,61 @@
+service: ${env:PROJECT_NAME}-backend
+
+plugins:
+  - serverless-python-requirements
+
+frameworkVersion: '3'
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+    usePoetry: false
+    useDownloadCache: false
+    useStaticCache: false
+    slim: true
+    pipCmdExtraArgs:
+      - --platform manylinux2014_x86_64
+      - '--only-binary=:all:'
+      - '--python-version=${env:PYTHON_VERSION}'
+    compatibleRuntimes:
+      - python${env:PYTHON_VERSION}
+
+provider:
+  name: aws
+  region: ${env:AWS_DEFAULT_REGION}
+  architecture: x86_64
+  tags:
+    Env: ${opt:stage}
+    Project: ${env:PROJECT_NAME}
+    Resource_Type: lambda_function
+    Client_Name: ${env:CLIENT_NAME}
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - secretsmanager:GetSecretValue
+          Resource: arn:aws:secretsmanager:us-east-1:303156412026:secret:sa-dam-dashboard-3t05zW
+        - Effect: Allow
+          Action:
+            - s3:GetObject
+            - s3:ListBucket
+            - s3:PutObject
+          Resource:
+            - arn:aws:s3:::sa-dam-pics
+            - arn:aws:s3:::sa-dam-pics/*
+
+functions:
+  sa-dam-data:
+    handler: lambda_function.lambda_handler
+    disableLogs: false
+    logRetentionInDays: 14
+    runtime: python${env:PYTHON_VERSION}
+    memorySize: 512
+    ephemeralStorageSize: 512
+    timeout: 360
+    name: ${self:service}-${opt:stage}
+    description: Backend lambda for ${env:PROJECT_NAME}
+    events:
+      - schedule:
+          rate: cron(0 6 ? * 3 *) # 08:00 am SAST is 06:00 UTC
+          enabled: true
