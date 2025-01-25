@@ -46,7 +46,7 @@ PROVINCE_CODE_MAPPING: Dict[str, str] = {
     "LP": "Limpopo",
     "M": "Mpumalanga",
     "G": "Gauteng",
-    "NW": "Wort-West",
+    "NW": "North-West",
     "KN": "KwaZulu-Natal",
     "FS": "Free State",
     "NC": "Northern Cape",

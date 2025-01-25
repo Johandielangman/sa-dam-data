@@ -51,7 +51,7 @@ functions:
     runtime: python${env:PYTHON_VERSION}
     memorySize: 512
     ephemeralStorageSize: 512
-    timeout: 360
+    timeout: 600
     name: ${self:service}-${opt:stage}
     description: Backend lambda for ${env:PROJECT_NAME}
     events:
