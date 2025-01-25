@@ -1,4 +1,4 @@
-name: Deploy to backend
+name: Lambda Deploy
 
 on:
   workflow_dispatch:
