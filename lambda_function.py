@@ -60,7 +60,7 @@ DAM_LEVEL_TABLE_ID: str = "ContentPlaceHolder1_tw"
 DEFAULT_TIMEOUT: int = 30  # s
 
 # https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes
-DEFAULT_DATE_FORMAT: str = "%Y-%M-%d"
+DEFAULT_DATE_FORMAT: str = "%Y-%m-%d"
 ALWAYS_UPSERT_MONGO: bool = True
 DATA_HEALTH_CHECK: bool = True
 
